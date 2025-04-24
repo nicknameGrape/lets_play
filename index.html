@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+	<head>
+		<style>
+body {
+	display: grid;
+	grid-template-rows: 20vh 80vh;
+	margin: 0px;
+}
+#title {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#top {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	font-size: 10vh;
+	background: skyblue;
+}
+
+#clock {
+	background: white;
+	height: 100%;
+}
+
+#choices {
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1vw;
+	align-content: flex-end;
+	justify-content: center;
+	background: tan;
+}
+
+img {
+	height: 30vh;
+}
+
+.big {
+	height: 100%;
+}
+
+		</style>
+	</head>
+	<body>
+<div id="top">
+	<div id="title">Hey, You!</div>
+</div>
+<div id="choices">
+	<img class="play" id="draw" src="img/lets_draw_pictures_annotated.jpg"></img>
+	<img class="play" id="bugs" src="img/lets_hunt_bugs_annotated.jpg"></img>
+	<img class="play" id="snowman" src="img/lets_make_a_snowman_annotated.jpg"></img>
+	<img class="play" id="cards" src="img/lets_play_cards_annotated.jpg"></img>
+	<img class="play" id="copsAndRobbers" src="img/lets_play_cops_and_robbers_annotated.jpg"></img>
+	<img class="play" id="dodgeball" src="img/lets_play_dodgeball_annotated.jpg"></img>
+	<img class="play" id="dodgebee" src="img/lets_play_dodgebee_annotated.jpg"></img>
+	<img class="play" id="hideAndSeek" src="img/lets_play_hide_and_seek_annotated.jpg"></img>
+	<img class="play" id="jungleGym" src="img/lets_play_on_the_jungle_gym_annotated.jpg"></img>
+	<img class="play" id="soccer" src="img/lets_play_soccer_annotated.jpg"></img>
+	<img class="play" id="tag" src="img/lets_play_tag_annotated.jpg"></img>
+	<img class="play" id="videoGames" src="img/lets_play_video_games_annotated.jpg"></img>
+	<img class="play" id="unicycles" src="img/lets_ride_unicycles_annotated.jpg"></img>
+</div>
+	</body>
+	<script>
+function clickHandler() {
+	if (want.includes(this)) {
+		console.log("right")
+		playImages.forEach(function (el) {
+			if (el === this) {
+				el.classList.add("big");
+			} else {
+				el.style.display = "none";
+			}
+		}.bind(this));
+		window.setTimeout(function () {
+			playImages.forEach(function (el) {
+				el.style.display = "";
+				el.style.visibility = "visible";
+				el.classList.remove("big");
+			});
+			atari();
+		}, 3000);
+	} else {
+		this.style.visibility = "hidden"
+	}
+}
+
+function atari() {
+	let indices = [];
+	for (let i=0; i<playImages.length; i++) {
+		indices.push(i);
+	}
+	want = [];
+	while (want.length < 3) {
+		let rIndex = indices.splice(Math.floor(Math.random()*indices.length), 1)[0];
+		want.push(playImages[rIndex]);
+	}
+	console.log(playImages, want);
+}
+
+let playImages = Array.from(document.getElementsByClassName("play"));
+let want = [];
+playImages.forEach(function (el) {
+	el.addEventListener("click", clickHandler);
+});
+atari();
+	</script>
+</html>
